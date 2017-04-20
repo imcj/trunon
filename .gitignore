@@ -1,0 +1,13 @@
+/node_modules
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.env
+composer.lock
+.vscode
+dump.rdb
+tags
+supervisord/run
