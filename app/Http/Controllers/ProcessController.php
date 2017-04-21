@@ -64,6 +64,10 @@ class ProcessController extends Controller
             $team = $teamBuilder->where('id', $teamId)->first();
         $permissions = $team->pivot->role->permissions->all();
 
+        Log::debug("User {$user->id} ", ['user' => $user]);
+        Log::debug("Team {$team->id}", ['team' => $team]);
+        Log::debug("Permissions ", ['permissions' => $permissions]);
+
         return view("process/index", [
             "permissions" => $permissions,
             // "userCanCreateProcess" => $userCanCreateProcess,
