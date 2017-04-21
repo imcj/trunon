@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use Illuminate\Http\Request;
 use App\Core\Deploy;
 use App\Core\SupervisordRPCFactory;
