@@ -5,7 +5,6 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="clearfix">
-                
             </div>
             <div class="panel panel-default clearfix">
                 @if (head(array_where($permissions, function($value, $key) { return $value->slug == 'create.process'; })))
@@ -27,9 +26,9 @@
                             <tr class="process-row">
                                 <td>
                                     @if (head(array_where($permissions, function($value, $key) { return $value->slug == 'create.process'; })))
-                                    <a href="{{ route('process.edit', [$process->id]) }}">{{$process->identifier}}</a>
+                                        <a href="{{ route('process.edit', [$process->id]) }}">{{$process->identifier}}</a>
                                     @else
-                                    {{$process->identifier}}
+                                        {{$process->identifier}}
                                     @endif
                                 </td>
                                 <td class="process-status">{{$process->status}}</td>

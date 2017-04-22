@@ -13,7 +13,6 @@ use Supervisor\Api;
 
 /**
  *
- * - [ ] 增加编辑进程
  */
 class ProcessController extends Controller
 {
@@ -52,8 +51,6 @@ class ProcessController extends Controller
 
     /**
      *
-     * TODO: 启动和重新启动进程
-     * TODO: 
      */
     public function index($teamId = 0)
     {
@@ -71,8 +68,17 @@ class ProcessController extends Controller
 
         return view("process/index", [
             "permissions" => $permissions,
-            // "userCanCreateProcess" => $userCanCreateProcess,
             "processes" => $this->processService->fetchProcessList($user, $teamId)
+        ]);
+    }
+
+    public function overview()
+    {
+        $userId = \Auth::id();
+        $user = $this->processService->fetchTeamProcessListByUserId($userId);
+
+        return view("process/overview", [
+            "teams" => $user->team
         ]);
     }
 
@@ -84,8 +90,6 @@ class ProcessController extends Controller
 
     /**
      *
-     * TODO: 持久化进程信息后部署到Supervisord
-     * TODO: Validate form
      */
     public function store(Request $request)
     {
@@ -107,7 +111,6 @@ class ProcessController extends Controller
 
     /**
      *
-     * TODO: Finish this action
      */
     public function edit($processId)
     {
@@ -119,7 +122,6 @@ class ProcessController extends Controller
 
     /**
      *
-     * TODO: Finish this action
      */
     public function update($processId, Request $request)
     {

@@ -5,6 +5,10 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Model\Team;
 
+use App\Core\SupervisordRPCFactory;
+use App\Core\SupervisordStateTransfer;
+use Supervisor\ApiException;
+
 class Process extends Model
 {
     const STARTING = "STARTING";
@@ -23,6 +27,11 @@ class Process extends Model
         'identifier', 'name', 'status', 'deploy', 'process_number', 'code',
         'team_id', 'owner_id'];
 
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+    }
+
     public function team()
     {
         return $this->belongsTo(Team::class);
@@ -31,6 +40,25 @@ class Process extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function supervisorStatus()
+    {
+        $supervisordRpcFactory = new SupervisordRPCFactory();
+        $supervisordRpc = $supervisordRpcFactory->create();
+        $supervisordStateTransfer = new SupervisordStateTransfer();
+
+        try {
+
+            $processInfo = $supervisordRpc->getProcessInfo(
+                $this->identifier);
+            $state = $supervisordStateTransfer->toProcessEnum(    
+                $processInfo['state']);
+        } catch (ApiException $exception) {
+            $state = Process::UNKNOW;
+        }
+
+        return $state;
     }
 
     public function canStart()

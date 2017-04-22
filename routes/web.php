@@ -14,7 +14,7 @@
 Auth::routes();
 Route::resource('notifications', 'NotificationController');
 Route::group(['middleware' => 'auth'], function() {
-    Route::get('/', 'ProcessController@index');
+    Route::get('/', 'ProcessController@overview');
     Route::get('/home', 'ProcessController@index');
     Route::get('/process/{teamId?}', 'ProcessController@index')
         ->name('processes');

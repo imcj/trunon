@@ -24,7 +24,21 @@ class ProcessService
     public function fetchProcessList($user, $teamId)
     {
         $processes = $this->repository->find($user, $teamId);
-        
+        $this->configProcess($processes);
+        return $processes;
+    }
+
+    public function fetchTeamProcessListByUserId($userId)
+    {
+        $user = \App\User::with(['team', 'team.process' => function($query) {
+            $query->limit(15);
+        }, 'team.role'])->where('id', $userId)->first();
+
+        return $user;
+    }
+
+    function configProcess($processes)
+    {
         foreach ($processes as $process) {
             
             try {
@@ -35,6 +49,7 @@ class ProcessService
             } catch (ApiException $exception) {
                 $state = Process::UNKNOW;
             }
+            $process->f = 1;
             $process->status = $state;
         }
 
