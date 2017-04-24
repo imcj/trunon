@@ -16,6 +16,7 @@ Route::resource('notifications', 'NotificationController');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'ProcessController@overview');
     Route::get('/home', 'ProcessController@index');
+    Route::resource('process', 'ProcessController');
     Route::get('/process/{teamId?}', 'ProcessController@index')
         ->name('processes');
 
@@ -27,7 +28,5 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/process/log/{id}', 'ProcessLogController@log');
     Route::get('/process/log/stdout/{id}', 'ProcessLogController@stdout');
     Route::get('/process/log/stderr/{id}', 'ProcessLogController@stderr');
-
-    Route::resource('process', 'ProcessController');
 });
 Route::resource('setting', 'SettingController');
