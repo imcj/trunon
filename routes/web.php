@@ -15,10 +15,10 @@ Auth::routes();
 Route::resource('notifications', 'NotificationController');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', 'ProcessController@overview');
-    Route::get('/home', 'ProcessController@index');
+    Route::get('/home', 'ProcessController@overview'); //注册完成后自动跳转到这个地址
+    Route::get('/team/{teamId}', 'ProcessController@team')
+        ->name('team_processes');
     Route::resource('process', 'ProcessController');
-    Route::get('/process/{teamId?}', 'ProcessController@index')
-        ->name('processes');
 
     Route::get('/process/start/{id}', 'ProcessController@start');
     Route::get('/process/reload/{id}', 'ProcessController@reload');

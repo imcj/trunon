@@ -34,6 +34,9 @@ class ProcessService
             $query->limit(15);
         }, 'team.role'])->where('id', $userId)->first();
 
+        foreach ($user->team as $team)
+            assert($team->pivot->role != null);
+
         return $user;
     }
 

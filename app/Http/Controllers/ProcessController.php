@@ -48,11 +48,15 @@ class ProcessController extends Controller
         return new Deploy($this->workspace, $process, $this->supervisorRpc);
     }
 
+    public function index()
+    {
+        return $this->overview();
+    }
 
     /**
      *
      */
-    public function index($teamId = 0)
+    public function team($teamId = 0)
     {
         $user = \Auth::user();
         $teamBuilder = $user->team;

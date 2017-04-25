@@ -14,7 +14,7 @@ class AddRoleInTeamsUsersTable extends Migration
     public function up()
     {
         Schema::table("teams_users", function(Blueprint $table) {
-            $table->integer("role_id");
+            $table->integer("role_id")->default(-1);
         });
     }
 

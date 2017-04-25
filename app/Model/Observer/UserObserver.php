@@ -4,6 +4,8 @@ namespace App\Model\Observer;
 use App\User;
 use App\Model\Profile;
 use App\Model\AppNotification;
+use App\Model\Team;
+use Bican\Roles\Models\Role;
 
 class UserObserver
 {
@@ -19,6 +21,27 @@ class UserObserver
         $profile = new Profile();
         $profile->user_id = $user->id;
         $profile->save();
+
+        $developerRole = Role::where("slug", "developer")->first();
+        $userRole = Role::where("slug", "user")->first();
+        $team = Team::create(['name' => 'Own']);
+        $team->users()->attach($user);
+        
+        $ownTeamPivot = $user->team->first()->pivot;
+        $ownTeamPivot->role_id = $developerRole->id;
+        $ownTeamPivot->save();
+
+        $globalTeam = Team::where("name", "Default")->first();
+        $globalTeam->users()->attach($user);
+
+        $globalTeamPivot = $user
+            ->team()
+            ->wherePivot('team_id', '=', $globalTeam->id)
+            ->first()
+            ->pivot;
+
+        $globalTeamPivot->role_id = $userRole->id;
+        $globalTeamPivot->save();
 
         AppNotification::create([
             'user_id' => $user->id,

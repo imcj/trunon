@@ -15,6 +15,11 @@ class Team extends Model
         return $this->hasMany(Process::class);
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, "teams_users");
+    }
+
     public function role()
     {
         return $this->belongsToMany(Role::class, "teams_users");

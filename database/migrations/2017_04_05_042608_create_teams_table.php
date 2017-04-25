@@ -20,14 +20,14 @@ class CreateTeamsTable extends Migration
         });
 
         Schema::table('users', function (Blueprint $table) {
-            $table->integer('team_id')->index();
+            $table->integer('team_id')->default(-1)->index();
             // $table->integer('team_id')->unsigned();
             // $table->foreign('team_id')->references('id')->on('teams');
         });
 
         Schema::table('processes', function (Blueprint $table) {
-            $table->integer('team_id')->index();
-            $table->integer('owner_id')->index();
+            $table->integer('team_id')->default(-1)->index();
+            $table->integer('owner_id')->default(-1)->index();
             // $table->integer('team_id')->unsigned();
             // $table->foreign('team_id')->references('id')->on('teams');
             // $table->integer('owner_id')->unsigned();

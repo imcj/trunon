@@ -53,7 +53,7 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
                                 @foreach ($teams as $team)
-                                <li><a href="{{route('processes', [$team->id])}}">{{$team->name}}</a></li>
+                                <li><a href="{{route('team_processes', [$team->id])}}">{{$team->name}}</a></li>
                                 @endforeach
                             </ul>
                         </li>
