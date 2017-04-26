@@ -63,6 +63,9 @@ class Process extends Model
 
     public function canStart()
     {
+        if (!$this->status) {
+            $this->status = $this->supervisorStatus();
+        }
         return in_array($this->status, [
             Process::STOPPED, Process::BACKOFF, Process::FATAL, Process::EXITED,
             Process::UNKNOW

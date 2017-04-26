@@ -52,7 +52,6 @@ class ProcessService
             } catch (ApiException $exception) {
                 $state = Process::UNKNOW;
             }
-            $process->f = 1;
             $process->status = $state;
         }
 
