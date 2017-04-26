@@ -9,7 +9,7 @@
                 <li><a href="{{route('process.index')}}">Process</a></li>
                 <li class="active">Add</li>
             </ol>
-            <form action="{{ url("process") }}" method="POST" enctype="application/x-www-form-urlencoded">
+            <form action="{{route('process_store', [$teamId])}}" method="POST" enctype="application/x-www-form-urlencoded">
             <div class="form-group">
                 <label for="identifier">Process ID</label>
                 <input class="form-control" name="identifier"></input>

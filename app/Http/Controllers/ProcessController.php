@@ -86,20 +86,22 @@ class ProcessController extends Controller
         ]);
     }
 
-    public function create()
+    public function create($teamId)
     {
         return view("process/create", [
+            'teamId' => $teamId
         ]);
     }
 
     /**
      *
      */
-    public function store(Request $request)
+    public function store($teamId, Request $request)
     {
         $owner = \Auth::user();
-        $team = $owner->team;
+        $team = Team::find($teamId);
         $data = $request->all();
+
         $data['owner_id'] = $owner->id;
         $data['team_id'] = $team->id;
         $process = Process::create($data);

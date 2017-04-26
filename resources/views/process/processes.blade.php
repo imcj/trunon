@@ -4,7 +4,7 @@
     <div class="panel-heading clearfix">
         <div class="pull-left">{{$team->name}}</div>
         @if ($team->pivot->role->permissions->where('slug', 'create.process')->isNotEmpty())
-        <a class="btn btn-primary pull-right" href="/process/create">New process</a>
+        <a class="btn btn-primary pull-right" href="{{route('process_create', [$team->id])}}">New process</a>
         @endif
     </div>
     <div class="panel-body">

@@ -21,7 +21,7 @@ class Deploy
     private $supervisordRpc;
 
     public function __construct(
-        string $workspaceDir,
+        $workspaceDir,
         Process $process,
         Api $supervisordRpc)
     {

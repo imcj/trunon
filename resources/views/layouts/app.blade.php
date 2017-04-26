@@ -46,7 +46,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;
-                        <li class="active"><a href="{{route('process.index')}}">Process</a></li>
+                        <li class="active"><a href="{{route('team_overview')}}">Process</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Team
                                 <span class="caret"></span>
