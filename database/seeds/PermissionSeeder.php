@@ -14,10 +14,11 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        // $p = Permission::create(['slug' => 'read.process2', 'name' => '12', 'model' => 'App\Model\Team']);
-        // // $p->model = 'App\Model\Team';
-        // // $p->save();
-        // exit();
+        $ownerRole = Role::create([
+            'name' => 'Owner',
+            'slug' => 'owner'
+        ]);
+
         $developerRole = Role::create([
             'name' => 'Developer',
             'slug' => 'developer'
@@ -38,9 +39,26 @@ class PermissionSeeder extends Seeder
             'slug' => 'read.process'
         ]);
 
+        $updatePermission = Permission::create([
+            'name' => 'Update process',
+            'slug' => 'update.process'
+        ]);
+
+        $deletePermission = Permission::create([
+            'name' => 'Delete process',
+            'slug' => 'delete.process'
+        ]);
+
         $developerRole->attachPermission($createPermission);
         $developerRole->attachPermission($readPermission);
+        $developerRole->attachPermission($updatePermission);
+        $developerRole->attachPermission($deletePermission);
 
         $userRole->attachPermission($readPermission);
+
+        $ownerRole->attachPermission($createPermission);
+        $ownerRole->attachPermission($readPermission);
+        $ownerRole->attachPermission($updatePermission);
+        $ownerRole->attachPermission($deletePermission);
     }
 }

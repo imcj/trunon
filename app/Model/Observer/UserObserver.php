@@ -31,7 +31,7 @@ class UserObserver
         $ownTeamPivot->role_id = $developerRole->id;
         $ownTeamPivot->save();
 
-        $globalTeam = Team::where("name", "Default")->first();
+        $globalTeam = Team::where("name", "Default Team")->first();
         $globalTeam->users()->attach($user);
 
         $globalTeamPivot = $user
