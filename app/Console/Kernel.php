@@ -13,7 +13,9 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        'App\Console\Commands\SupervisordCommand'
+        'App\Console\Commands\SupervisordCommand',
+        'App\Console\Commands\RunCommand',
+        'App\Console\Commands\ProcesTestCommand'
     ];
 
     /**

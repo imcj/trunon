@@ -11,3 +11,4 @@ composer.lock
 dump.rdb
 tags
 supervisord/run
+venv/
