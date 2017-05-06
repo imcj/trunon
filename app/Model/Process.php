@@ -22,10 +22,11 @@ class Process extends Model
 
     const DEPLOY_CODE = "CODE";
     const DEPLOY_ZIP = "ZIP";
+    const DEPLOY_COMMAND = "COMMAND";
 
     protected $fillable = [
         'identifier', 'name', 'status', 'deploy', 'process_number', 'code',
-        'team_id', 'owner_id'];
+        'command', 'team_id', 'owner_id'];
 
     public function __construct(array $attributes = [])
     {
@@ -81,9 +82,19 @@ class Process extends Model
 
     public function toSupervisordConfigFile($processExecutePath, $processDir)
     {
+        $command = "";
+        switch (strtoupper($this->deploy)) {
+            case Process::DEPLOY_COMMAND:
+                $command = $this->command;
+                break;
+            case Process::DEPLOY_CODE:
+                $command = $processExecutePath;
+                break;
+        }
+        
         $config = [];
         $config[] = "[program:{$this->identifier}]";
-        $config[] = "command = $processExecutePath";
+        $config[] = "command = $command";
         $config[] = "numproc = {$this->process_number}";
         $config[] = "stdout_logfile = {$processDir}/log/stdout.log";
         $config[] = "stderr_logfile = {$processDir}/log/stderr.log";

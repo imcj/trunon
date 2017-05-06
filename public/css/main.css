@@ -100,3 +100,7 @@ pre {
     border: none;
     background: #FFF;
 }
+
+.deploy_code {
+    display: hide;
+}

@@ -88,8 +88,11 @@ class ProcessController extends Controller
 
     public function create($teamId)
     {
+        $process = new Process();
+        $process->process_number = 1;
         return view("process/create", [
-            'teamId' => $teamId
+            'teamId' => $teamId,
+            'process' => $process
         ]);
     }
 
