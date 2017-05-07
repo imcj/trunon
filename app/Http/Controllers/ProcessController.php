@@ -90,6 +90,7 @@ class ProcessController extends Controller
     {
         $process = new Process();
         $process->process_number = 1;
+        $process->deploy = Process::DEPLOY_COMMAND;
         return view("process/create", [
             'teamId' => $teamId,
             'process' => $process

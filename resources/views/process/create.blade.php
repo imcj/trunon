@@ -16,11 +16,4 @@
     </div>
 </div>
 
-<script>
-$(document.body).ready(function() {
-    console.log("update");
-    $(".deploy_code").css("display", "none");
-})
-</script>
-
 @endsection
