@@ -52,7 +52,7 @@ $(document.body).ready(function() {
         var currentDeployType = $(event.currentTarget).val()
         activeDeploy(currentDeployType)
     })
-    activeDeploy(process.deploy)
+    activeDeploy(process.deploy.toLowerCase())
     $("#deploy").val(process.deploy.toLowerCase())
 })
 </script>
