@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+if [ ! -d "vendor" ]; then
+    composer install
+fi
+
+if [ ! -e ".env" ]; then
+    cp .env.example .env
+    php artisan key:generate
+    php artisan config:clear
+    php artisan config:cache
+fi
+
+if [ ! -e "storage/trunon" ]; then
+    touch storage/trunon
+    php artisan migrate
+    php artisan db:seed
+fi
+
+which supervisord > /dev/null
+if [ $? -ne 0 ]; then
+if [ "$(whoami)" != "root" ]; then
+echo "未安装 supervisord ，将会在您输入密码后安装"
+CMD=$(cat <<EOF
+    pip install supervisor
+EOF
+)
+sudo sh -c $CMD > /dev/null
+fi
+fi
+
+php artisan run

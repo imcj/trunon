@@ -4,30 +4,20 @@ TRUNON
 ## 依赖
 
 - python
-- supervisord
+- supervisor
 - php
 - php5_sqlite
 
+TRUNON使用`supervisor`管理进程，在supervsiro的基础上提供web界面。
+
 ## 安装
 
-执行`setup.sh`
+在终端执行 `sh RUN` 或者 `./RUN` 可以配置并运行TRUNON。
 
 ```
 git clone https://github.com/imcj/trunon.git
 cd trunon
-sh setup.sh
-```
-
-或者依次执行下面的指令。
-
-```
-git clone https://github.com/imcj/trunon.git
-cd trunon
-composer install
-cp .env.example .env
-touch storage/trunon
-php artisan migrate
-php artisan db:seed
+./RUN
 ```
 
 ## 安装 Supervisord
