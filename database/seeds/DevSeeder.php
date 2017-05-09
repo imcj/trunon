@@ -18,7 +18,7 @@ class DevSeeder extends Seeder
         DB::table('users')->truncate();
         DB::table('processes')->truncate();
 
-        $team = Team::create(array("name" => "Default"));
+        $team = Team::create(array("name" => "公共团队"));
 
         $user = User::create([
             "name" => "trunon",

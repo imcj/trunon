@@ -24,14 +24,14 @@ class UserObserver
 
         $developerRole = Role::where("slug", "developer")->first();
         $userRole = Role::where("slug", "user")->first();
-        $team = Team::create(['name' => 'Own']);
+        $team = Team::create(['name' => '初始团队']);
         $team->users()->attach($user);
         
         $ownTeamPivot = $user->team->first()->pivot;
         $ownTeamPivot->role_id = $developerRole->id;
         $ownTeamPivot->save();
 
-        $globalTeam = Team::where("name", "Default Team")->first();
+        $globalTeam = Team::where("name", "公共团队")->first();
         $globalTeam->users()->attach($user);
 
         $globalTeamPivot = $user

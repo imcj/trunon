@@ -14,7 +14,7 @@ class InitializationSeeder extends Seeder
      */
     public function run()
     {
-        $team = Team::create(array("name" => "Default Team"));
+        $team = Team::create(array("name" => "公共团队"));
         $password = rand();
 
         echo "Initialized password is $password\n";
