@@ -1,0 +1,55 @@
+# Composer stores all downloaded packages in the vendor/ directory.
+# Do not use the following if the vendor/ directory is commited to
+# your git repository.
+cache:
+  paths:
+  - vendor/
+
+stages:
+  - test
+  - build
+  - deploy
+
+test:7.0:
+  image: php:7.0
+  cache:
+    paths:
+    - vendor/
+    - composer.phar
+
+    # TODO: 如果不存在composer.phar，下载安装
+  before_script:
+    # Install composer dependencies
+    - bash ci/docker_install.sh
+    - wget https://composer.github.io/installer.sig -O - -q | tr -d '\n' > installer.sig
+    - php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+    - php -r "if (hash_file('SHA384', 'composer-setup.php') === file_get_contents('installer.sig')) { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+    - php composer-setup.php
+    - php -r "unlink('composer-setup.php'); unlink('installer.sig');"
+    - php composer.phar install
+
+  script:
+  - phpunit
+  - php vendor/bin/phpcs --standard=PSR2 --ignore=app/views,app/storage,app/tests,app/filters.php,app/routes.php,packages/,app/Providers/,app/Console/,app/services/,http/Middleware/,app/Exceptions/,app/Events/ -w --colors app/
+
+deploy_staging:
+  stage: deploy
+  script:
+  - curl http://59.111.102.8:5000/ -X POST -d token=123
+
+  environment:
+    name: staging
+    url: http://59.111.102.8
+
+  # when: manual
+
+deploy_production:
+  stage: deploy
+  script:
+  - curl http://59.111.102.8:5000/ -X POST -d token=123
+
+  environment:
+    name: production
+    url: http://59.111.102.8
+
+  when: manual

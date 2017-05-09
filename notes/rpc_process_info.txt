@@ -1,0 +1,16 @@
+array:14 [▼
+  "description" => "pid 71074, uptime 12:25:37"
+  "pid" => 71074
+  "stderr_logfile" => "/var/trunon/process/demo/log/stderr.log"
+  "stop" => 0
+  "logfile" => "/var/trunon/process/demo/log/stdout.log"
+  "exitstatus" => 0
+  "spawnerr" => ""
+  "now" => 1491272828
+  "group" => "demo"
+  "name" => "demo"
+  "statename" => "RUNNING"
+  "start" => 1491228091
+  "state" => 20
+  "stdout_logfile" => "/var/trunon/process/demo/log/stdout.log"
+]
