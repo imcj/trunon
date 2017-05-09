@@ -1,9 +1,9 @@
             <div class="form-group">
-                <label for="identifier">Process ID</label>
+                <label for="identifier">进程ID</label>
                 <input class="form-control" name="identifier" value="{{$process->identifier}}"></input>
             </div>
             <div class="form-group">
-                <label for="deploy_type">Deploy type</label>
+                <label for="deploy_type">部署类型</label>
                 <select class="form-control" name="deploy" id="deploy">
                     <option value="command">Command</option>
                     <option value="code">Code</option>
@@ -11,18 +11,18 @@
                 </select>
             </div>
             <div class="form-group deploy_command">
-                <label for="code">Command</label>
+                <label for="code">命令行</label>
                 <textarea class="form-control" name="command" placeholder="nginx">{{$process->command}}</textarea>
             </div>
             <div class="form-group deploy_code" stype="display: none;">
-                <label for="code">Code</label>
+                <label for="code">Shell脚本</label>
                 <textarea class="form-control" name="code">{{$process->code}}</textarea>
             </div>
             <div class="form-group">
-                <label for="process_number">Process number</label>
+                <label for="process_number">进程数量</label>
                 <input class="form-control" type="text" name="process_number" value="{{$process->process_number}}"></input>
             </div>
-            <button type="submit" class="btn btn-primary pull-right">Publish new process</button>
+            <button type="submit" class="btn btn-primary pull-right">发布进程</button>
             {{ csrf_field() }}
             {{$slot}}
 

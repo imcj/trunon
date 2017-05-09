@@ -46,9 +46,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         &nbsp;
-                        <li class="active"><a href="{{route('team_overview')}}">Process</a></li>
+                        <li class="active"><a href="{{route('team_overview')}}">进程</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Team
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">团队
                                 <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" role="menu">
@@ -63,8 +63,8 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ url('/login') }}">Login</a></li>
-                            <li><a href="{{ url('/register') }}">Register</a></li>
+                            <li><a href="{{ url('/login') }}">登录</a></li>
+                            <li><a href="{{ url('/register') }}">注册</a></li>
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -85,9 +85,9 @@
                                         </a>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="">Setting</a></li>
+                                    <li><a href="">设置</a></li>
                                     <li>
-                                        <a href="{{ url('notifications') }}">Notification
+                                        <a href="{{ url('notifications') }}">通知
                                             @if ($hasUnreads)
                                             <span class="unreads">{{ $unreads }}</span>
                                             @endif
@@ -97,7 +97,7 @@
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            退出
                                         </a>
 
                                         <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
