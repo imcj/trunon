@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Model\Process;
 use Illuminate\Console\Command;
 
 class RunCommand extends Command
@@ -38,84 +39,35 @@ class RunCommand extends Command
     public function handle()
     {
         $daemon = $this->option("daemon");
-        
-        $processId = posix_getpid();
-        file_put_contents("/tmp/trunon.log", "father " . $processId . "\n", FILE_APPEND);
 
-        // TODO: Reap
-        $pid = pcntl_fork();
-        if ($pid == 0) {
-            $processId = posix_getpid();
-            $processIdFile = "/tmp/trunon.pid";
+        $process = Process::where("command", "php artisan serve --host 0.0.0.0 --port 8000")->first();
+        if (null == $process) {
+            $process = Process::create([
+                "identifier" =>
+            ])
+        }
 
-            if (file_exists($processIdFile)) {
-                $runningProcessId = (int)file_get_contents($processIdFile);
-                if (posix_kill($runningProcessId, 0))
-                    exit(0);
+        while (true) {
+            $cmd =  "php artisan supervisord:run";
+            if ($daemon) {
+                $cmd .= " --daemon";
             }
-
-            file_put_contents("/tmp/trunon.log", "son child " . $processId . "\n", FILE_APPEND);
-
-            $ppid = pcntl_fork();
-            if ($ppid > 0)
+            $cmd .= " 2>&1";
+            if ($daemon) {
+                system($cmd);
                 exit(0);
-            
-            fclose(STDIN);
-            fclose(STDOUT);
-            fclose(STDERR);
+            }
 
-            posix_setsid();
-
-            $processId = posix_getpid();
-            file_put_contents($processIdFile, $processId);
-            file_put_contents("/tmp/trunon.log", "grand child pid " . $processId . "\n", FILE_APPEND);
+            $fd = popen($cmd, "r");
 
             while (true) {
-                $cmd = "php artisan serve 2>&1";
-
-                if ($daemon) {
-                    system($cmd);
-                    return;
+                $gets = fread($fd, 512 *100);
+                echo $gets;
+                if (!$gets || $gets == "") {
+                    break;
                 }
-                $fd = popen($cmd, "r");
-                
-                if (!$daemon) {
-                    while (true) {
-                        $gets = fread($fd, 512 * 100);
-                        echo $gets;
-                        if (!$gets || $gets == "") {
-                            break;
-                        }
-                    }
-                }
-                sleep(10);
             }
-        } else if ($pid > 0) {
-            while (true) {
-                $cmd =  "php artisan supervisord:run";
-                if ($daemon) {
-                    $cmd .= " --daemon";
-                }
-                $cmd .= " 2>&1";
-                if ($daemon) {
-                    system($cmd);
-                    exit(0);
-                    echo "Command exit";
-                }
-
-                $fd = popen($cmd, "r");
-
-                while (true) {
-                    $gets = fread($fd, 512 *100);
-                    echo $gets;
-                    if (!$gets || $gets == "") {
-                        break;
-                    }
-                }
-                sleep(1);
-            }
-        } else {
-            echo "Fork failure.";
+            sleep(1);
         }
     }
 }
