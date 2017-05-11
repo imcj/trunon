@@ -42,7 +42,7 @@ class RunCommand extends Command
         if ($pid) {
 
             while (true) {
-                $fd = popen("php artisan serve 2>&1", "r");
+                $fd = popen("php artisan serve --host 0.0.0.0 --port 8000 2>&1", "r");
             
                 while (true) {
                     $gets = fread($fd, 512 *100);
