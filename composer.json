@@ -8,10 +8,8 @@
         "php": ">=5.6.4",
         "barryvdh/laravel-debugbar": "^2.3",
         "bican/roles": "dev-master",
-        "doctrine/dbal": "^2.5",
         "ihor/supervisor-xml-rpc": "^0.1.1",
-        "laravel/framework": "5.4.*",
-        "sentry/sentry-laravel": "^0.6.1"
+        "laravel/framework": "5.4.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -55,6 +53,6 @@
         "sort-packages": true
     },
     "repositories": [
-        { "type": "vcs", "url": "https://github.com/nikolaynesov/roles.git" }
+        { "type": "git", "url": "https://github.com/nikolaynesov/roles.git" }
     ]
 }
