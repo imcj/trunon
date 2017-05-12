@@ -49,4 +49,9 @@ class User extends Authenticatable implements HasRoleAndPermissionContract
         return $this->belongsToMany(Team::class, "teams_users")->withPivot('role_id', 'id')
         ->using('App\Model\TeamRole');
     }
+
+    public static function default()
+    {
+        return User::first();
+    }
 }

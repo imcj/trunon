@@ -10,6 +10,8 @@ class Team extends Model
 {
     protected $fillable = ['name'];
 
+    public static $defaultName = "公共团队";
+
     public function process()
     {
         return $this->hasMany(Process::class);
@@ -23,5 +25,10 @@ class Team extends Model
     public function role()
     {
         return $this->belongsToMany(Role::class, "teams_users");
+    }
+
+    public static function default()
+    {
+        return Team::where("name", self::$defaultName);
     }
 }
