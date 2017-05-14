@@ -26,7 +26,7 @@ class Process extends Model
 
     protected $fillable = [
         'identifier', 'name', 'status', 'deploy', 'process_number', 'code',
-        'command', 'team_id', 'owner_id'];
+        'command', 'team_id', 'owner_id', 'root_directory'];
 
     public function __construct(array $attributes = [])
     {
@@ -82,24 +82,8 @@ class Process extends Model
 
     public function toSupervisordConfigFile($processExecutePath, $processDir)
     {
-        $command = "";
-        switch (strtoupper($this->deploy)) {
-            case Process::DEPLOY_COMMAND:
-                $command = $this->command;
-                break;
-            case Process::DEPLOY_CODE:
-                $command = $processExecutePath;
-                break;
-        }
-        
-        $config = [];
-        $config[] = "[program:{$this->identifier}]";
-        $config[] = "command = $command";
-        $config[] = "numproc = {$this->process_number}";
-        $config[] = "stdout_logfile = {$processDir}/log/stdout.log";
-        $config[] = "stderr_logfile = {$processDir}/log/stderr.log";
-        $config[] = "directory = {$processDir}";
 
-        return join("\n", $config);
+
+
     }
 }

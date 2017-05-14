@@ -29,6 +29,8 @@ class Team extends Model
 
     public static function default()
     {
-        return Team::where("name", self::$defaultName);
+        $team = Team::where("name", self::$defaultName)->first();
+        assert(null != $team);
+        return $team;
     }
 }

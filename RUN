@@ -14,7 +14,7 @@ fi
 if [ ! -e "storage/trunon" ]; then
     touch storage/trunon
     php artisan migrate
-    php artisan db:seed
+    php artisan db:seed --verbose
 fi
 
 which supervisord > /dev/null

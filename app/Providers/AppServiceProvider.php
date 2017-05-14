@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Core\Deploy;
+use App\Core\Impl\DeployFactoryImpl;
+use App\Core\Translater;
 use Illuminate\Support\ServiceProvider;
 
 use App\User;
@@ -26,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $deployFactory = new DeployFactoryImpl();
+        $this->app->instance(Deploy::class, $deployFactory->create());
+
+        $this->app->bind(Program::class, Program::class);
+        $this->app->bind(Translater::class, Translater::class);
     }
 }

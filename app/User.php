@@ -52,6 +52,8 @@ class User extends Authenticatable implements HasRoleAndPermissionContract
 
     public static function default()
     {
-        return User::first();
+        $user = User::first();
+        assert(null != $user);
+        return $user;
     }
 }
