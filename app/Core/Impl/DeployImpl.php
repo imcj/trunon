@@ -3,6 +3,7 @@ namespace App\Core\Impl;
 
 use App\Core\Deploy;
 use App\Core\Supervisor\Path;
+use App\Core\Translater;
 use App\Model\Process;
 use \Supervisor\Api;
 use \Supervisor\ApiException;
@@ -35,16 +36,18 @@ class DeployImpl implements Deploy
 
     public function remove($process)
     {
+        $path = new Path($this->workspaceDir, $process);
+
         try {
             $this->supervisordRpc->stopProcess($process->identifier);
         } catch(ApiException $exception) {
             Log::info($exception->getMessage());
         }
-        Log::info("Delete " . $this->supervisordConfigFilePath($process));
-        Log::info("Delete " . $this->processDir($process));
-        @unlink($this->supervisordConfigFilePath($process));
+        Log::info("Delete " . $path->supervisordConfigFilePath($process));
+        Log::info("Delete " . $path->processDir($process));
+        @unlink($path->supervisordConfigFilePath($process));
         // TODO: 用PHP方法实现
-        system("rm -rf " . $this->processDir($process));
+        system("rm -rf " . $path->processDir($process));
         // rmdir($this->processDir());
     }
 
@@ -66,10 +69,9 @@ class DeployImpl implements Deploy
     {
         Log::info("部署进程 类型:{$process->deploy}");
         $path = new Path($this->workspaceDir, $process);
-
+        $processDir = $path->processDir();
         if ($process->deploy == strtolower(Process::DEPLOY_CODE)) {
             $processExecutePath = $path->processExecutePath();
-            $processDir = $path->processDir();
 
             Log::info("部署源代码到 {$processDir}");
             if (!file_exists($processDir))
@@ -86,8 +88,12 @@ class DeployImpl implements Deploy
 
     function deploySupervisordProcessConfigFile($process)
     {
-        $fd = fopen($this->supervisordConfigFilePath($process), "w");
-        fwrite($fd, $this->supervisordConfigFileContent($process));
+        $path = new Path($this->workspaceDir, $process);
+        $translater = new Translater();
+
+        $fd = fopen($path->supervisordConfigFilePath(), "w");
+        $program = $translater->toSupervisor($path, $process);
+        fwrite($fd, $program->configFileContent());
         fclose($fd);
     }
 
@@ -98,17 +104,5 @@ class DeployImpl implements Deploy
         } catch (\ErrorException $e) {
             Log::error($e->getMessage());
         }
-    }
-
-    /**
-     * @param Process $process
-     * @return string
-     */
-    public function supervisordConfigFileContent(Process $process)
-    {
-        return $process->toSupervisordConfigFile(
-            $this->processExecutePath($process),
-            $this->processDir($process)
-        );
     }
 }

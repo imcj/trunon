@@ -39,6 +39,11 @@ class User extends Authenticatable implements HasRoleAndPermissionContract
         'saved' => UserSaved::class
     ];
 
+    public function changePassword($newPassword)
+    {
+        $this->password = bcrypt($newPassword);
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class, "user_id");

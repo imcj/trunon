@@ -46,7 +46,7 @@ class Program
         $this->processNumber = $processNumber;
         $this->stdoutFile = $stdoutFile;
         $this->stderrFile = $stderrFile;
-        $directory = $directory;
+        $this->directory = $directory;
     }
 
     /**
@@ -97,7 +97,7 @@ class Program
         return $this->directory;
     }
 
-    public function config()
+    public function configFileContent()
     {
         $config = [];
         $config[] = "[program:{$this->identifier}]";

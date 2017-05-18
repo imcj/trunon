@@ -37,14 +37,14 @@ class Path
         throw new \Exception("Process deploy mode is not code.");
     }
 
-    public function processDir($process)
+    public function processDir()
     {
-        if (null != $process->root_directory ||
-            "" != $process->root_directory) {
-            return $process->root_directory;
+        if (null != $this->process->root_directory ||
+            "" != $this->process->root_directory) {
+            return $this->process->root_directory;
         }
         return "{$this->workspaceDir}/process/" .
-            "{$process->identifier}";
+            "{$this->process->identifier}";
     }
 
 
@@ -54,9 +54,9 @@ class Path
             "{$this->process->identifier}/log";
     }
 
-    public function supervisordConfigFilePath($process)
+    public function supervisordConfigFilePath()
     {
         return "{$this->workspaceDir}/conf.d" .
-            "/{$process->identifier}.conf";
+            "/{$this->process->identifier}.conf";
     }
 }

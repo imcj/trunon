@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         'App\Console\Commands\SupervisordCommand',
         'App\Console\Commands\RunCommand',
-        'App\Console\Commands\ProcesTestCommand'
+        'App\Console\Commands\ProcesTestCommand',
+        'App\Console\Commands\'
     ];
 
     /**

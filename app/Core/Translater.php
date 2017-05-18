@@ -2,12 +2,18 @@
 namespace App\Core;
 
 
+use App\Core\Supervisor\Path;
 use App\Core\Supervisor\Program;
 use App\Model\Process;
 
 class Translater
 {
-    public function toSupervisor(Process $process)
+    /**
+     * @param Path $path
+     * @param Process $process
+     * @return Program
+     */
+    public function toSupervisor(Path $path, Process $process)
     {
         if (null != $process->root_directory && "" != $process->root_directory) {
             $directory = $process->root_directory;
@@ -21,7 +27,7 @@ class Translater
                 $command = $process->command;
                 break;
             case Process::DEPLOY_CODE:
-                $command = $processExecutePath;
+                $command = $path->processExecutePath();
                 break;
         }
 
@@ -29,9 +35,11 @@ class Translater
             $process->identifier,
             $command,
             $process->processNumber,
-            $stdoutFile,
-            $stderrFile,
+            $path->processLogDir() . "/stdout.log",
+            $path->processLogDir() . "/stderr.log",
             $directory
         );
+
+        return $program;
     }
 }
