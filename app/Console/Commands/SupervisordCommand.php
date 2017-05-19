@@ -11,7 +11,7 @@ class SupervisordCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'supervisord:run';
+    protected $signature = 'supervisord:run {--D|daemon}';
 
     /**
      * The console command description.
@@ -77,6 +77,15 @@ class SupervisordCommand extends Command
         @mkdir($workspaceDir . "/log", 0755, true);
         @mkdir($workspaceDir . "/conf.d", 0755, true);
 
-        system("supervisord -n -c $workspaceDir/supervisord.conf");
+        $daemon = $this->option("daemon");
+        $cmd = "supervisord";
+        if (!$daemon) {
+            $cmd .= " -n";
+        }
+        $cmd .= " -c $workspaceDir/supervisord.conf";
+        system($cmd);
+
+        echo "Run supervisor" . PHP_EOL;
+        exit(0);
     }
 }

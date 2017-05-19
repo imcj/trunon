@@ -31,21 +31,11 @@ class ProcessController extends Controller
      */
     private $processService;
 
-    public function __construct()
+    public function __construct(Deploy $deploy)
     {
         // parent::__construct();
-
-        $config = config('trunon');
-        $this->workspaceDir = $config['workspace_dir'];
-        
-        $supervisordRPCFactory = new SupervisordRPCFactory();
-        $this->supervisordRpc = $supervisordRPCFactory->create();
+        $this->deploy = $deploy;
         $this->processService = new ProcessService();
-    }
-
-    function createDeploy($process)
-    {
-        return new Deploy($this->workspace, $process, $this->supervisorRpc);
     }
 
     public function index()
@@ -109,12 +99,7 @@ class ProcessController extends Controller
         $data['owner_id'] = $owner->id;
         $data['team_id'] = $team->id;
         $process = Process::create($data);
-        $deploy = new Deploy(
-            $this->workspaceDir,
-            $process,
-            $this->supervisordRpc
-        );
-        $deploy->run();
+        $this->deploy->do($process);
 
         return redirect()->route("process.index", []);
     }
@@ -138,24 +123,14 @@ class ProcessController extends Controller
         $process = Process::find($processId);
         $process->update($request->all());
 
-        $deploy = new Deploy(
-            $this->workspaceDir,
-            $process,
-            $this->supervisordRpc
-        );
-        $deploy->run();
+        $this->deploy->do($process);
         return redirect()->route("process.edit", [$process->id]);
     }
 
     public function destroy($processId)
     {
         $process = Process::find($processId);
-        $deploy = new Deploy(
-            $this->workspaceDir,
-            $process,
-            $this->supervisordRpc
-        );
-        $deploy->remove();
+        $this->deploy->remove($process);
         $process->delete();
         return response()->json([
             "message" => "ok"

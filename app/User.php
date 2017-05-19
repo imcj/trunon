@@ -39,6 +39,11 @@ class User extends Authenticatable implements HasRoleAndPermissionContract
         'saved' => UserSaved::class
     ];
 
+    public function changePassword($newPassword)
+    {
+        $this->password = bcrypt($newPassword);
+    }
+
     public function profile()
     {
         return $this->hasOne(Profile::class, "user_id");
@@ -48,5 +53,12 @@ class User extends Authenticatable implements HasRoleAndPermissionContract
     {
         return $this->belongsToMany(Team::class, "teams_users")->withPivot('role_id', 'id')
         ->using('App\Model\TeamRole');
+    }
+
+    public static function default()
+    {
+        $user = User::first();
+        assert(null != $user);
+        return $user;
     }
 }
