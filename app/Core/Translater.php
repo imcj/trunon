@@ -18,7 +18,7 @@ class Translater
         if (null != $process->root_directory && "" != $process->root_directory) {
             $directory = $process->root_directory;
         } else {
-            $directory = "";
+            $directory = $path->processDir();
         }
 
         $command = "";
