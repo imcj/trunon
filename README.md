@@ -3,6 +3,14 @@ TRUNON
 
 TRUNON帮助你用网页管理服务进程，包括启动、修改和重启删除进程等。可以在进程中查看日志。进程管理基于supervisor这个python开发的进程管理工具。
 
+## 演示
+
+http://demo.trunon.com
+
+账号： example@trunon.com
+
+密码：`111111`
+
 ## 截图
 
 ![](screenshots/form_list.png)
