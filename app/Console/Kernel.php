@@ -16,7 +16,7 @@ class Kernel extends ConsoleKernel
         'App\Console\Commands\SupervisordCommand',
         'App\Console\Commands\RunCommand',
         'App\Console\Commands\ProcesTestCommand',
-        'App\Console\Commands\'
+        'App\Console\Commands\AuthChangePassword'
     ];
 
     /**

@@ -12,7 +12,7 @@ class AuthChangePassword extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'auth:password {email} {password}';
 
     /**
      * The console command description.
@@ -38,8 +38,8 @@ class AuthChangePassword extends Command
      */
     public function handle()
     {
-        $user = User::where("email", $this->option("email"))->first();
-        $user->changePassword($this->option("password"));
+        $user = User::where("email", $this->argument("email"))->first();
+        $user->changePassword($this->argument("password"));
         $user->save();
     }
 }

@@ -84,5 +84,8 @@ class SupervisordCommand extends Command
         }
         $cmd .= " -c $workspaceDir/supervisord.conf";
         system($cmd);
+
+        echo "Run supervisor" . PHP_EOL;
+        exit(0);
     }
 }

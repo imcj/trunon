@@ -7,6 +7,7 @@ use App\Model\Process;
 use App\Model\Team;
 use App\User;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Artisan;
 
 class RunCommand extends Command
 {
@@ -71,27 +72,10 @@ class RunCommand extends Command
         }
         $this->deploy->do($process);
 
-        while (true) {
-            $cmd =  "php artisan supervisord:run";
-            if ($daemon) {
-                $cmd .= " --daemon";
-            }
-            $cmd .= " 2>&1";
-            if ($daemon) {
-                system($cmd);
-                exit(0);
-            }
-
-            $fd = popen($cmd, "r");
-
-            while (true) {
-                $gets = fread($fd, 512 *100);
-                echo $gets;
-                if (!$gets || $gets == "") {
-                    break;
-                }
-            }
-            sleep(1);
+        $arguments = [];
+        if ($daemon) {
+            $arguments['--daemon'] = true;
         }
+        Artisan::call("supervisord:run", $arguments);
     }
 }
