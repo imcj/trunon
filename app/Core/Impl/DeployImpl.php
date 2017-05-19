@@ -83,7 +83,7 @@ class DeployImpl implements Deploy
             chmod($processExecutePath, 0755);
         }
 
-        @mkdir($processDir . "/log", 0755, true);
+        @mkdir($path->processLogDir(), 0755, true);
     }
 
     function deploySupervisordProcessConfigFile($process)
