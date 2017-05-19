@@ -36,6 +36,8 @@ class ProcessController extends Controller
         // parent::__construct();
         $this->deploy = $deploy;
         $this->processService = new ProcessService();
+        $factory = new SupervisordRPCFactory();
+        $this->supervisordRpc = $factory->create();
     }
 
     public function index()
