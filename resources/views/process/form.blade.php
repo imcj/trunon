@@ -1,6 +1,12 @@
-            <div class="form-group">
+            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="identifier">进程ID</label>
-                <input class="form-control" name="identifier" value="{{$process->identifier}}"></input>
+                <input class="form-control" name="identifier" value="{{$process->identifier}}" {{$process->id > 0?"disabled=\"disabled\"":""}}></input>
+
+                @if ($errors->has('identifier'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('identifier') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="deploy_type">部署类型</label>

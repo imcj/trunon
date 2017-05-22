@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProcessRequest;
 use Log;
 use Illuminate\Http\Request;
 use App\Core\Deploy;
@@ -92,7 +93,7 @@ class ProcessController extends Controller
     /**
      *
      */
-    public function store($teamId, Request $request)
+    public function store($teamId, ProcessRequest $request)
     {
         $owner = \Auth::user();
         $team = Team::find($teamId);
@@ -120,7 +121,7 @@ class ProcessController extends Controller
     /**
      *
      */
-    public function update($processId, Request $request)
+    public function update($processId, ProcessRequest $request)
     {
         $process = Process::find($processId);
         $process->update($request->all());
