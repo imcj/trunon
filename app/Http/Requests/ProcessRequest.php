@@ -24,7 +24,7 @@ class ProcessRequest extends FormRequest
     public function rules()
     {
         return [
-            'identifier' => 'required|regex:/[\w_-]+/|processIdentifier'
+            'identifier' => 'required|alpha_dash|processIdentifier'
         ];
     }
 }
