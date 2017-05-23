@@ -11,8 +11,7 @@ class ProcessRequest extends AbstractProcessRequest
      */
     public function rules()
     {
-        $rules = parent::rules();
-        $rules['identifier'] = 'required|alpha_dash|processIdentifier';
-        return $rules;
+        return [
+        ];
     }
 }

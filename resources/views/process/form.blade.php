@@ -1,6 +1,6 @@
-            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+            <div class="form-group{{ $errors->has('identifier') ? ' has-error' : '' }}">
                 <label for="identifier">进程ID</label>
-                <input class="form-control" name="identifier" value="{{$process->identifier}}" {{$process->id > 0?"disabled=\"disabled\"":""}}></input>
+                <input class="form-control" name="identifier" value="{{old('identifier') == '' ? $process->identifier : old('identifier')}}" {{$process->id > 0?"disabled=\"disabled\"":""}}></input>
 
                 @if ($errors->has('identifier'))
                     <span class="help-block">
@@ -16,17 +16,31 @@
                     <option value="zip">ZIP</option>
                 </select>
             </div>
-            <div class="form-group deploy_command">
+            <div class="form-group deploy_command{{ $errors->has('deploy_command') ? ' has-error' : '' }}">
                 <label for="code">命令行</label>
-                <textarea class="form-control" name="command" placeholder="nginx">{{$process->command}}</textarea>
+                <textarea class="form-control" name="command" placeholder="nginx">{{old('command') == '' ? $process->command : old('command')}}</textarea>
+                @if ($errors->has('deploy_command'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('deploy_command') }}</strong>
+                    </span>
+                @endif
             </div>
-            <div class="form-group deploy_code" stype="display: none;">
+            <div class="form-group deploy_code deploy_command{{ $errors->has('deploy_code') ? ' has-error' : '' }}" stype="display: none;">
                 <label for="code">Shell脚本</label>
-                <textarea class="form-control" name="code">{{$process->code}}</textarea>
+                <textarea class="form-control" name="code">{{old('deploy_command') == '' ? $process->code : old('deploy_command')}}</textarea>
+                @if ($errors->has('deploy_code'))
+                <span class="help-block">
+                        <strong>{{ $errors->first('deploy_code') }}</strong>
+                    </span>
+                @endif
             </div>
             <div class="form-group">
                 <label for="process_number">进程数量</label>
                 <input class="form-control" type="text" name="process_number" value="{{$process->process_number}}"></input>
+            </div>
+            <div class="form-group">
+                <label for="process_number">进程目录</label>
+                <input class="form-control" type="text" name="directory" value="{{$process->root_directory}}"></input>
             </div>
             <button type="submit" class="btn btn-primary pull-right">发布进程</button>
             {{ csrf_field() }}

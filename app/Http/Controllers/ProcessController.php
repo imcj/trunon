@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Core\Supervisor\Path;
 use App\Http\Requests\ProcessRequest;
 use Log;
 use Illuminate\Http\Request;
@@ -99,9 +100,26 @@ class ProcessController extends Controller
         $team = Team::find($teamId);
         $data = $request->all();
 
-        $data['owner_id'] = $owner->id;
-        $data['team_id'] = $team->id;
-        $process = Process::create($data);
+        $process = new Process();
+        $process->identifier = $request->get("identifier");
+        $process->deploy = $request->get("deploy", "command");
+        $process->command = $request->get("command");
+        $process->code = $request->get("code");
+        $process->process_number = $request->get("process_number");
+        $process->root_directory = $request->get("root_directory");
+        $process->owner_id = $owner->id;
+        $process->team_id = $team->id;
+
+//        $data['owner_id'] = $owner->id;
+//        $data['team_id'] = $team->id;
+//        $process = Process::create($data);
+        $config = config('trunon');
+        $workspaceDir = $config['workspace_dir'];
+        $path = new Path($workspaceDir, $process);
+
+        $process->root_directory = $path->processDir();
+        $process->save();
+
         $this->deploy->do($process);
 
         return redirect()->route("process.index", []);
