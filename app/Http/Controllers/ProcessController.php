@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Core\Supervisor\Path;
 use App\Http\Requests\ProcessRequest;
+use App\Http\Requests\UpdateProcessRequest;
 use Log;
 use Illuminate\Http\Request;
 use App\Core\Deploy;
@@ -139,10 +140,13 @@ class ProcessController extends Controller
     /**
      *
      */
-    public function update($processId, ProcessRequest $request)
+    public function update($processId, UpdateProcessRequest $request)
     {
         $process = Process::find($processId);
-        $process->update($request->all());
+        $data = $request->all();
+        $process->update($data);
+
+        $p2 = Process::find($processId);
 
         $this->deploy->do($process);
         return redirect()->route("process.edit", [$process->id]);

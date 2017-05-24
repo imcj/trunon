@@ -40,7 +40,7 @@
             </div>
             <div class="form-group">
                 <label for="process_number">进程目录</label>
-                <input class="form-control" type="text" name="directory" value="{{$process->root_directory}}"></input>
+                <input class="form-control" type="text" name="root_directory" value="{{$process->root_directory}}"></input>
             </div>
             <button type="submit" class="btn btn-primary pull-right">发布进程</button>
             {{ csrf_field() }}

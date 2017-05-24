@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProcessRequest extends AbstractProcessRequest
+class UpdateProcessRequest extends AbstractProcessRequest
 {
     /**
      * @inheritdoc

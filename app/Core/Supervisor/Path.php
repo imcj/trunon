@@ -30,8 +30,8 @@ class Path
     public function processExecutePath()
     {
         if ($this->process->deploy == strtolower(Process::DEPLOY_CODE)) {
-            return $this->processDir($this->process) .
-                "/{$this->process->identifier}";
+            return $this->workspaceDir .
+                "/process/{$this->process->identifier}/{$this->process->identifier}";
         }
 
         throw new \Exception("Process deploy mode is not code.");
