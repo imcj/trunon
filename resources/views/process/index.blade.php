@@ -30,6 +30,7 @@
                                     @else
                                         {{$process->identifier}}
                                     @endif
+                                    <p>{{$process->description}}</p>
                                 </td>
                                 <td class="process-status">{{$process->status}}</td>
                                 <td class="process-action">

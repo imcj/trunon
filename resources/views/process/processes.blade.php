@@ -25,6 +25,7 @@
                         @else
                             {{$process->identifier}}
                         @endif
+                        <p>{{$process->description}}</p>
                     </td>
                     <td class="process-status">
                         @if ($process != null)

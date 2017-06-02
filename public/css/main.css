@@ -85,6 +85,10 @@
     line-height: 36px;
 }
 
+.process-row td p {
+    color: #999;
+}
+
 .process-status {
     width: 100px;
     line-height: 36px;

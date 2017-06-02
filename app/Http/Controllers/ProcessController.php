@@ -111,6 +111,7 @@ class ProcessController extends Controller
         $process->owner_id = $owner->id;
         $process->team_id = $team->id;
         $process->environment = $request->get("environment");
+        $process->description = $request->get("description");
 
 //        $data['owner_id'] = $owner->id;
 //        $data['team_id'] = $team->id;
