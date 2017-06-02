@@ -110,6 +110,7 @@ class ProcessController extends Controller
         $process->root_directory = $request->get("root_directory");
         $process->owner_id = $owner->id;
         $process->team_id = $team->id;
+        $process->environment = $request->get("environment");
 
 //        $data['owner_id'] = $owner->id;
 //        $data['team_id'] = $team->id;

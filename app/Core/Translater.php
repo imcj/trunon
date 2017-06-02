@@ -37,7 +37,8 @@ class Translater
             $process->processNumber,
             $path->processLogDir() . "/stdout.log",
             $path->processLogDir() . "/stderr.log",
-            $directory
+            $directory,
+            $process->environment
         );
 
         return $program;

@@ -26,7 +26,7 @@ class Process extends Model
 
     protected $fillable = [
         'identifier', 'name', 'status', 'deploy', 'process_number', 'code',
-        'command', 'team_id', 'owner_id', 'root_directory'];
+        'command', 'team_id', 'owner_id', 'root_directory', 'environment'];
 
     public function __construct(array $attributes = [])
     {

@@ -42,6 +42,15 @@
                 <label for="process_number">进程目录</label>
                 <input class="form-control" type="text" name="root_directory" value="{{$process->root_directory}}"></input>
             </div>
+            <div class="form-group{{ $errors->has('environment') ? ' has-error' : '' }}">
+                <label for="environment">环境变量</label>
+                <input class="form-control" type="text" name="environment" value="{{$process->environment}}"></input>
+                @if ($errors->has('environment'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('environment') }}</strong>
+                    </span>
+                @endif
+            </div>
             <button type="submit" class="btn btn-primary pull-right">发布进程</button>
             {{ csrf_field() }}
             {{$slot}}

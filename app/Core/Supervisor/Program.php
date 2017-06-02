@@ -33,13 +33,19 @@ class Program
      */
     private $directory;
 
+    /**
+     * @var string
+     */
+    private $environment;
+
     public function __construct(
         $identifier,
         $command,
         $processNumber,
         $stdoutFile,
         $stderrFile,
-        $directory)
+        $directory,
+        $environment)
     {
         $this->identifier = $identifier;
         $this->command = $command;
@@ -47,6 +53,7 @@ class Program
         $this->stdoutFile = $stdoutFile;
         $this->stderrFile = $stderrFile;
         $this->directory = $directory;
+        $this->environment = $environment;
     }
 
     /**
@@ -97,6 +104,11 @@ class Program
         return $this->directory;
     }
 
+    public function environment()
+    {
+        return $this->environment;
+    }
+
     public function configFileContent()
     {
         $config = [];
@@ -106,6 +118,7 @@ class Program
         $config[] = "stdout_logfile = {$this->stdoutFile}";
         $config[] = "stderr_logfile = {$this->stderrFile}";
         $config[] = "directory = {$this->directory}";
+        $config[] = "environment = {$this->environment}";
 
         return join("\n", $config);
     }
