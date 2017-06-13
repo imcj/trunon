@@ -56,8 +56,8 @@
                 <textarea class="form-control" name="description">{{old('description') == '' ? $process->description : old('description')}}</textarea>
                 @if ($errors->has('description'))
                 <span class="help-block">
-                        <strong>{{ $errors->first('description') }}</strong>
-                    </span>
+                    <strong>{{ $errors->first('description') }}</strong>
+                </span>
                 @endif
             </div>
             <button type="submit" class="btn btn-primary pull-right">发布进程</button>

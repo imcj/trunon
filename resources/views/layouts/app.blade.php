@@ -85,7 +85,7 @@
                                         </a>
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="">设置</a></li>
+                                    <li><a href="{{ url('ssh') }}">SSH Keys</a></li>
                                     <li>
                                         <a href="{{ url('notifications') }}">通知
                                             @if ($hasUnreads)

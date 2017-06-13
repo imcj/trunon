@@ -14,6 +14,7 @@
 Auth::routes();
 Route::resource('notifications', 'NotificationController');
 Route::group(['middleware' => 'auth'], function() {
+    Route::resource('rsa', 'RSAController');
     Route::resource('process', 'ProcessController', [
         'process' => 'teamId'
     ]);
